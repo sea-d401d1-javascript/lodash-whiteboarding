@@ -1,8 +1,1 @@
-Pick a lodash method to rewrite!
-
-Flatten
-Map
-Filter
-Zip
-Once
-Every
+lodash flatten: Jim Vermillion, Logan Tegman, Jose Tello, Erika Hokanson
