@@ -1,48 +1,29 @@
 var users = [
   { 'user': 'barney', 'age': 36, 'active': true },
+  { 'user': 'john', 'age': 31, 'active': false },
   { 'user': 'fred',   'age': 40, 'active': false }
 ];
 
 function filter(collection, object) {
   var res = [];
-  var hasIt = true;
-  if (typeof object === 'function') {
-    for (var i = 0; i < collection.length; i++) {
-      hasIt = true;
-      if (!object(collection[i])) {
-        hasIt = false;
-      }
-      if(hasIt) res.push(collection[i]);
+  var hasIt;
+  for (var i = 0; i < collection.length; i++) {
+    hasIt = true;
+    if (typeof object === 'function') {
+      if (!object(collection[i])) hasIt = false;
     }
-  }
-  else if (Array.isArray(object)) {
-    for (var i = 0; i < collection.length; i++) {
-      hasIt = true;
-      if (!!object[1] !== !!collection[i][object[0]]) {
-        hasIt = false;
-      }
-      if (hasIt) res.push(collection[i]);
+    else if (Array.isArray(object)) {
+      if (!!object[1] !== !!collection[i][object[0]]) hasIt = false;
     }
-  }
-  else if (typeof object === 'object') {
-    for (var i = 0; i < collection.length; i++) {
-      hasIt = true;
+    else if (typeof object === 'object') {
       for(var prop in object) {
-        if (collection[i][prop] !== object[prop]) {
-          hasIt = false;
-        }
+        if (collection[i][prop] !== object[prop]) hasIt = false;
       }
-      if (hasIt) res.push(collection[i]);
     }
-  }
-  else {
-    for (var i = 0; i < collection.length; i++) {
-      hasIt = true;
-        if (!collection[i][object.toString()]) {
-          hasIt = false;
-        }
-      if (hasIt) res.push(collection[i]);
+    else {
+      if (!collection[i][object.toString()]) hasIt = false;
     }
+    if (hasIt) res.push(collection[i]);
   }
   return res;
 }
